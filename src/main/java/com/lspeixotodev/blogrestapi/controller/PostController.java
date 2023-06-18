@@ -1,7 +1,7 @@
 package com.lspeixotodev.blogrestapi.controller;
 
-import com.lspeixotodev.blogrestapi.payload.PostDTO;
-import com.lspeixotodev.blogrestapi.payload.PostResponse;
+import com.lspeixotodev.blogrestapi.dto.PostDTO;
+import com.lspeixotodev.blogrestapi.dto.PostResponse;
 import com.lspeixotodev.blogrestapi.service.PostService;
 import com.lspeixotodev.blogrestapi.utils.AppConstants;
 import com.lspeixotodev.blogrestapi.utils.MediaType;

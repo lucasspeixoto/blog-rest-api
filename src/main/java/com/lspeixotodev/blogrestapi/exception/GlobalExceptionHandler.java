@@ -1,6 +1,6 @@
 package com.lspeixotodev.blogrestapi.exception;
 
-import com.lspeixotodev.blogrestapi.payload.ErrorDetails;
+import com.lspeixotodev.blogrestapi.dto.ErrorDetails;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;

@@ -1,6 +1,6 @@
 package com.lspeixotodev.blogrestapi.controller;
 
-import com.lspeixotodev.blogrestapi.payload.CommentDTO;
+import com.lspeixotodev.blogrestapi.dto.CommentDTO;
 import com.lspeixotodev.blogrestapi.service.CommentService;
 import com.lspeixotodev.blogrestapi.utils.MediaType;
 import jakarta.validation.Valid;
