@@ -2,6 +2,7 @@ package com.lspeixotodev.blogrestapi.controller;
 
 import com.lspeixotodev.blogrestapi.payload.CommentDTO;
 import com.lspeixotodev.blogrestapi.service.CommentService;
+import com.lspeixotodev.blogrestapi.utils.MediaType;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,14 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/posts")
+@RequestMapping(value = "/api/posts", produces = MediaType.APPLICATION_JSON)
 public class CommentController {
 
     @Autowired
     private CommentService service;
 
     @PostMapping("/{postId}/comments")
-    public ResponseEntity<CommentDTO> createComment(@PathVariable(value = "postId") Long postId, @Valid  @RequestBody CommentDTO commentDTO) {
+    public ResponseEntity<CommentDTO> createComment(@PathVariable(value = "postId") Long postId, @Valid @RequestBody CommentDTO commentDTO) {
 
         return new ResponseEntity<>(service.createComment(postId, commentDTO), HttpStatus.CREATED);
     }

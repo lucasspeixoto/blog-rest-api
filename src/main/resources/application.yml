@@ -11,11 +11,6 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: false
-  security:
-    user:
-      name: lucas
-      password: admin123
-      roles: ADMIN
   servlet:
     multipart:
       enabled: true
