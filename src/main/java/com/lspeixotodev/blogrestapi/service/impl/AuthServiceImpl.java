@@ -1,12 +1,13 @@
 package com.lspeixotodev.blogrestapi.service.impl;
 
+import com.lspeixotodev.blogrestapi.dto.LoginDTO;
+import com.lspeixotodev.blogrestapi.dto.RegisterDTO;
 import com.lspeixotodev.blogrestapi.entity.Role;
 import com.lspeixotodev.blogrestapi.entity.User;
 import com.lspeixotodev.blogrestapi.exception.BlogAPIException;
-import com.lspeixotodev.blogrestapi.dto.LoginDTO;
-import com.lspeixotodev.blogrestapi.dto.RegisterDTO;
 import com.lspeixotodev.blogrestapi.repository.RoleRepository;
 import com.lspeixotodev.blogrestapi.repository.UserRepository;
+import com.lspeixotodev.blogrestapi.security.JwtTokenProvider;
 import com.lspeixotodev.blogrestapi.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,8 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     @Override
     public String login(LoginDTO loginDto) {
@@ -45,11 +48,9 @@ public class AuthServiceImpl implements AuthService {
                                 loginDto.getUsernameOrEmail(),
                                 loginDto.getPassword()));
 
-        System.out.println(authentication);
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return "User logged-in successfully";
+        return jwtTokenProvider.generateToken(authentication);
     }
 
     @Override

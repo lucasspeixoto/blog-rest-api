@@ -1,5 +1,6 @@
 package com.lspeixotodev.blogrestapi.controller;
 
+import com.lspeixotodev.blogrestapi.dto.JWTAuthResponse;
 import com.lspeixotodev.blogrestapi.dto.LoginDTO;
 import com.lspeixotodev.blogrestapi.dto.RegisterDTO;
 import com.lspeixotodev.blogrestapi.service.AuthService;
@@ -21,10 +22,13 @@ public class AuthController {
 
     // Login Rest API
     @PostMapping(value = {"/login", "/signin"})
-    public ResponseEntity<String> login(@RequestBody LoginDTO loginDto) {
-        String response = authService.login(loginDto);
+    public ResponseEntity<JWTAuthResponse> login(@RequestBody LoginDTO loginDto) {
+        String token = authService.login(loginDto);
 
-        return ResponseEntity.ok(response);
+        JWTAuthResponse jwtAuthResponse = new JWTAuthResponse();
+        jwtAuthResponse.setAccessToken(token);
+
+        return ResponseEntity.ok(jwtAuthResponse);
     }
 
     // Register Rest API
