@@ -1,3 +1,8 @@
+security:
+  jwt:
+    token:
+      secret-key: daf66e01593f61a15b857cf433aae03a005812b31234e149036bcc8dee755dbb
+      expire-lenght: 604800000
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -11,11 +16,6 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: false
-  security:
-    user:
-      name: lucas
-      password: admin123
-      roles: ADMIN
   servlet:
     multipart:
       enabled: true

@@ -1,9 +1,7 @@
 package com.lspeixotodev.blogrestapi.service;
 
-import com.lspeixotodev.blogrestapi.payload.PostDTO;
-import com.lspeixotodev.blogrestapi.payload.PostResponse;
-
-import java.util.List;
+import com.lspeixotodev.blogrestapi.dto.PostDTO;
+import com.lspeixotodev.blogrestapi.dto.PostResponse;
 
 public interface PostService {
 

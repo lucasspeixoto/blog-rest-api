@@ -6,7 +6,7 @@ import com.lspeixotodev.blogrestapi.entity.Post;
 import com.lspeixotodev.blogrestapi.exception.BlogAPIException;
 import com.lspeixotodev.blogrestapi.exception.ResourceNotFoundException;
 import com.lspeixotodev.blogrestapi.mappers.BlogMapper;
-import com.lspeixotodev.blogrestapi.payload.CommentDTO;
+import com.lspeixotodev.blogrestapi.dto.CommentDTO;
 import com.lspeixotodev.blogrestapi.repository.CommentRepository;
 import com.lspeixotodev.blogrestapi.repository.PostRepository;
 import com.lspeixotodev.blogrestapi.service.CommentService;

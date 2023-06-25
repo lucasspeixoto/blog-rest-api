@@ -1,11 +1,10 @@
-package com.lspeixotodev.blogrestapi.payload;
+package com.lspeixotodev.blogrestapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.List;
 
 public class ErrorDetails implements Serializable {
 

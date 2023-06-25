@@ -1,6 +1,6 @@
 package com.lspeixotodev.blogrestapi.service;
 
-import com.lspeixotodev.blogrestapi.payload.CommentDTO;
+import com.lspeixotodev.blogrestapi.dto.CommentDTO;
 
 import java.util.List;
 

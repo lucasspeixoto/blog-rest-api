@@ -1,4 +1,4 @@
-package com.lspeixotodev.blogrestapi.payload;
+package com.lspeixotodev.blogrestapi.dto;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;

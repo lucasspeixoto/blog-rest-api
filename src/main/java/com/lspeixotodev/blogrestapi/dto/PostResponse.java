@@ -1,4 +1,4 @@
-package com.lspeixotodev.blogrestapi.payload;
+package com.lspeixotodev.blogrestapi.dto;
 
 import java.util.List;
 import java.util.Objects;
