@@ -1,13 +1,17 @@
 package com.lspeixotodev.blogrestapi.service.impl;
 
+import com.lspeixotodev.blogrestapi.entity.Category;
 import com.lspeixotodev.blogrestapi.entity.Post;
 import com.lspeixotodev.blogrestapi.exception.ResourceNotFoundException;
 import com.lspeixotodev.blogrestapi.mappers.BlogMapper;
 import com.lspeixotodev.blogrestapi.dto.PostDTO;
 import com.lspeixotodev.blogrestapi.dto.PostResponse;
+import com.lspeixotodev.blogrestapi.repository.CategoryRepository;
 import com.lspeixotodev.blogrestapi.repository.PostRepository;
 import com.lspeixotodev.blogrestapi.service.PostService;
+
 import org.modelmapper.ModelMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,9 +31,19 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public PostDTO createPost(PostDTO postDTO) {
+
+        Category category = this.categoryRepository.findById(postDTO.getCategoryId()).orElseThrow(
+                () -> new ResourceNotFoundException("Category", "id", postDTO.getCategoryId())
+        );
+
         Post post = this.convertDTOToEntity(postDTO);
+
+        post.setCategory(category);
 
         Post newPost = this.postRepository.save(post);
 
@@ -81,6 +95,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDTO updatePost(PostDTO postDto, Long id) {
 
+        Category category = this.categoryRepository.findById(postDto.getCategoryId()).orElseThrow(
+                () -> new ResourceNotFoundException("Category", "id", postDto.getCategoryId())
+        );
+
         Post entity = this.postRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Post", "id", id)
         );
@@ -88,6 +106,7 @@ public class PostServiceImpl implements PostService {
         entity.setTitle(postDto.getTitle());
         entity.setDescription(postDto.getDescription());
         entity.setContent(postDto.getContent());
+        entity.setCategory(category);
 
         Post updatedPost = this.postRepository.save(entity);
 
@@ -103,6 +122,21 @@ public class PostServiceImpl implements PostService {
         this.postRepository.delete(entity);
 
         return convertEntityToDTO(entity);
+    }
+
+    @Override
+    public List<PostDTO> getPostsByCategoryId(Long categoryId) {
+
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "id", categoryId));
+
+        List<Post> posts = this.postRepository.findPostsByCategoryId(categoryId);
+
+        if(posts.isEmpty()) {
+            throw new ResourceNotFoundException("Post", "category id", categoryId);
+        }
+
+        return this.convertEntitiesToDTOs(posts);
     }
 
     //! Mapper methods ------------------------------------------

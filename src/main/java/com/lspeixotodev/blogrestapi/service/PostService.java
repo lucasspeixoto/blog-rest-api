@@ -3,6 +3,8 @@ package com.lspeixotodev.blogrestapi.service;
 import com.lspeixotodev.blogrestapi.dto.PostDTO;
 import com.lspeixotodev.blogrestapi.dto.PostResponse;
 
+import java.util.List;
+
 public interface PostService {
 
     PostDTO createPost(PostDTO postDTO);
@@ -14,5 +16,7 @@ public interface PostService {
     PostDTO updatePost(PostDTO postDto, Long id);
 
     PostDTO deletePost(Long id);
+
+    List<PostDTO> getPostsByCategoryId(Long categoryId);
 
 }

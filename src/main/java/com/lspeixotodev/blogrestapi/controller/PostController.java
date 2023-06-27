@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/api/posts", produces = MediaType.APPLICATION_JSON)
 public class PostController {
@@ -41,6 +43,11 @@ public class PostController {
     @GetMapping("/{id}")
     public ResponseEntity<PostDTO> getPostById(@PathVariable(name = "id") Long id) throws Exception {
         return ResponseEntity.ok(service.getPostById(id));
+    }
+
+    @GetMapping("/category/{id}")
+    public ResponseEntity<List<PostDTO>> getPostsByCategoryId(@PathVariable(name = "id") Long id) throws Exception {
+        return ResponseEntity.ok(service.getPostsByCategoryId(id));
     }
 
     @PreAuthorize("hasRole('ADMIN')")

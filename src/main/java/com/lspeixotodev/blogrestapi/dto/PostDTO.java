@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class PostDTO {
 
@@ -21,14 +22,21 @@ public class PostDTO {
     @Size(min = 10, message = "Content must be minimum 10 characters")
     private String content;
 
+    private Set<CommentDTO> comments;
+
+    private Long categoryId;
+
+
     public PostDTO() {
     }
 
-    public PostDTO(Long id, String title, String description, String content) {
+    public PostDTO(Long id, String title, String description, String content, Set<CommentDTO> comments, Long categoryId) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.content = content;
+        this.comments = comments;
+        this.categoryId = categoryId;
     }
 
     public Long getId() {
@@ -61,6 +69,22 @@ public class PostDTO {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public Set<CommentDTO> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<CommentDTO> comments) {
+        this.comments = comments;
     }
 
     @Override

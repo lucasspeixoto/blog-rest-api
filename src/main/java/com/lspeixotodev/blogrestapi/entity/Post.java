@@ -1,13 +1,11 @@
 package com.lspeixotodev.blogrestapi.entity;
 
-
 import jakarta.persistence.*;
 import org.hibernate.Hibernate;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -37,15 +35,21 @@ public class Post implements Serializable {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Comment> comments = new HashSet<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
 
     public Post() {
     }
 
-    public Post(Long id, String title, String description, String content) {
+    public Post(Long id, String title, String description, String content, Set<Comment> comments, Category category) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.content = content;
+        this.comments = comments;
+        this.category = category;
     }
 
     public Set<Comment> getComments() {
@@ -86,6 +90,14 @@ public class Post implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override
