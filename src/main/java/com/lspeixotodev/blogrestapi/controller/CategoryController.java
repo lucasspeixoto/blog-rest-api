@@ -5,21 +5,36 @@ import com.lspeixotodev.blogrestapi.dto.CategoryResponse;
 import com.lspeixotodev.blogrestapi.service.CategoryService;
 import com.lspeixotodev.blogrestapi.utils.AppConstants;
 import com.lspeixotodev.blogrestapi.utils.MediaType;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/categories", produces = MediaType.APPLICATION_JSON)
+@Tag(
+        name = "CRUD REST APIs for Category Resource"
+)
 public class CategoryController {
 
     @Autowired
     private CategoryService service;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(
+            summary = "Create Category REST API",
+            description = "Create Category REST API is used to save category into database"
+    )
+    @ApiResponse(
+            responseCode = "201",
+            description = "Http Status 201 CREATED"
+    )
     @PostMapping
     public ResponseEntity<CategoryDTO> createCategory(@Valid @RequestBody CategoryDTO categoryDTO) {
 
@@ -27,6 +42,14 @@ public class CategoryController {
     }
 
 
+    @Operation(
+            summary = "Get all Categories",
+            description = "Get all Categories REST API is used to list all existing categories into database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 SUCCESS"
+    )
     @GetMapping
     public CategoryResponse getAllCategories(
             @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) Integer pageNo,
@@ -39,12 +62,27 @@ public class CategoryController {
         return service.getAllCategories(pageNo, pageSize, sortBy, sortDir);
     }
 
+    @Operation(
+            summary = "Get Category By Id",
+            description = "Get Category By Id REST API is used to get a post by id into database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 SUCCESS"
+    )
     @GetMapping("/{id}")
     public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable(name = "id") Long id) throws Exception {
         return ResponseEntity.ok(service.getCategoryById(id));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Operation(
+            summary = "Update a Category",
+            description = "Update Category REST API is used to edit an existing category into database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 SUCCESS"
+    )
     @PutMapping("/{id}")
     public ResponseEntity<CategoryDTO> updateCategory(@Valid @RequestBody CategoryDTO categoryDTO, @PathVariable(name = "id") Long id) {
 
@@ -53,7 +91,14 @@ public class CategoryController {
         return new ResponseEntity<>(responseCategoryDTO, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Operation(
+            summary = "Delete Category By Id",
+            description = "Delete Category By Id REST API is used to remove a category by id from database"
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Http Status 200 SUCCESS"
+    )
     @DeleteMapping("/{id}")
     public ResponseEntity<CategoryDTO> deleteCategory(@PathVariable(name = "id") Long id) {
 

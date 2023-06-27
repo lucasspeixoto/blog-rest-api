@@ -1,24 +1,37 @@
 package com.lspeixotodev.blogrestapi.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
+@Schema(
+        description = "CategoryDto Model Information"
+)
 public class CommentDTO {
 
     private Long id;
 
+    @Schema(
+            description = "Blog Comment Name"
+    )
     @NotEmpty(message = "Name should not be null or empty")
     private String name;
 
+    @Schema(
+            description = "Blog Comment Email"
+    )
     // email should not be null or empty
     // email field validation
     @NotEmpty(message = "Email should not be null or empty")
     @Email(message = "Invalid Email format")
     private String email;
 
+    @Schema(
+            description = "Blog Comment Body"
+    )
     // comment body should not be bull or empty
     // Comment body must be minimum 10 characters
     @NotEmpty

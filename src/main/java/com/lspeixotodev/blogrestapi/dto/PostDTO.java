@@ -1,29 +1,45 @@
 package com.lspeixotodev.blogrestapi.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 import java.util.Set;
 
+@Schema(
+        description = "PostDto Model Information"
+)
 public class PostDTO {
 
     private Long id;
 
+    @Schema(
+            description = "Blog Post Title"
+    )
     @NotEmpty(message = "Title should not be null or empty")
     @Size(min = 2, message = "Post Title must be minimum 2 characters")
     private String title;
 
+    @Schema(
+            description = "Blog Post Description"
+    )
     @NotEmpty(message = "Description should not be null or empty")
     @Size(min = 10, message = "Description must be minimum 10 characters")
     private String description;
 
+    @Schema(
+            description = "Blog Post Content"
+    )
     @NotEmpty(message = "Content should not be null or empty")
     @Size(min = 10, message = "Content must be minimum 10 characters")
     private String content;
 
     private Set<CommentDTO> comments;
 
+    @Schema(
+            description = "Blog Post Category"
+    )
     private Long categoryId;
 
 

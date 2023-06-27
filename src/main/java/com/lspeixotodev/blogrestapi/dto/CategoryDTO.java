@@ -1,17 +1,30 @@
 package com.lspeixotodev.blogrestapi.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
+
 import java.util.*;
 
-
+@Schema(
+        description = "CategoryDto Model Information"
+)
 public class CategoryDTO {
 
 
     private Long id;
 
-
+    @Schema(
+            description = "Blog Category name"
+    )
+    // name should not be null or empty
+    @NotEmpty(message = "Name should not be null or empty")
     private String name;
 
-
+    @Schema(
+            description = "Blog Category description"
+    )
+    // description should not be null or empty
+    @NotEmpty(message = "Description should not be null or empty")
     private String description;
 
 
