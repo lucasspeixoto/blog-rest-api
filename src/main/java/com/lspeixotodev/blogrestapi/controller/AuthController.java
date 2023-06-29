@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/auth", produces = MediaType.APPLICATION_JSON)
+@RequestMapping(value = "/api/v1/auth", produces = MediaType.APPLICATION_JSON)
 @Tag(
         name = "CRUD REST APIs for Authentication Resource"
 )

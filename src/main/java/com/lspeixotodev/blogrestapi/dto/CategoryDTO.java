@@ -21,7 +21,7 @@ public class CategoryDTO {
     private String name;
 
     @Schema(
-            description = "Blog Category description"
+            description = " "
     )
     // description should not be null or empty
     @NotEmpty(message = "Description should not be null or empty")

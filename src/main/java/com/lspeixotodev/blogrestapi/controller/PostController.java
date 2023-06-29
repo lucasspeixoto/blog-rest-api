@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/posts", produces = MediaType.APPLICATION_JSON)
+@RequestMapping(value = "/api/v1", produces = MediaType.APPLICATION_JSON)
 @Tag(
         name = "CRUD REST APIs for Post Resource"
 )
@@ -43,7 +43,7 @@ public class PostController {
             name = "Bear Authentication"
     )
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping
+    @PostMapping("/posts")
     public ResponseEntity<PostDTO> createPost(@Valid @RequestBody PostDTO postDTO) {
 
         return new ResponseEntity<>(service.createPost(postDTO), HttpStatus.CREATED);
@@ -57,7 +57,7 @@ public class PostController {
             responseCode = "200",
             description = "Http Status 200 SUCCESS"
     )
-    @GetMapping
+    @GetMapping("/posts")
     public PostResponse getAllPosts(
             @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) Integer pageSize,
@@ -77,10 +77,11 @@ public class PostController {
             responseCode = "200",
             description = "Http Status 200 SUCCESS"
     )
-    @GetMapping("/{id}")
-    public ResponseEntity<PostDTO> getPostById(@PathVariable(name = "id") Long id) throws Exception {
+    @GetMapping("/posts/{id}")
+    public ResponseEntity<PostDTO> getPostByIdV1(@PathVariable(name = "id") Long id) throws Exception {
         return ResponseEntity.ok(service.getPostById(id));
     }
+
 
     @Operation(
             summary = "Get Post By Category Id",
@@ -90,7 +91,7 @@ public class PostController {
             responseCode = "200",
             description = "Http Status 200 SUCCESS"
     )
-    @GetMapping("/category/{id}")
+    @GetMapping("/posts/category/{id}")
     public ResponseEntity<List<PostDTO>> getPostsByCategoryId(@PathVariable(name = "id") Long id) throws Exception {
         return ResponseEntity.ok(service.getPostsByCategoryId(id));
     }
@@ -107,7 +108,7 @@ public class PostController {
             name = "Bear Authentication"
     )
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/{id}")
+    @PutMapping("/posts/{id}")
     public ResponseEntity<PostDTO> updatePost(@Valid @RequestBody PostDTO postDTO, @PathVariable(name = "id") Long id) {
 
         PostDTO responsePostDTO = service.updatePost(postDTO, id);
@@ -127,7 +128,7 @@ public class PostController {
             name = "Bear Authentication"
     )
     @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/posts/{id}")
     public ResponseEntity<PostDTO> deletePost(@PathVariable(name = "id") Long id) {
 
         PostDTO responsePostDTO = service.deletePost(id);
