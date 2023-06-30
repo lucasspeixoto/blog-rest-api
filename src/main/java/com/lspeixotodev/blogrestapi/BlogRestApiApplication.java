@@ -1,11 +1,15 @@
 package com.lspeixotodev.blogrestapi;
 
+import com.lspeixotodev.blogrestapi.entity.Role;
+import com.lspeixotodev.blogrestapi.repository.RoleRepository;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -30,10 +34,23 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 				url = "https://github.com/lucasspeixoto/blog-rest-api"
 		)
 )
-public class BlogRestApiApplication {
+public class BlogRestApiApplication implements CommandLineRunner {
+
+	@Autowired
+	private RoleRepository roleRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BlogRestApiApplication.class, args);
 	}
 
+	@Override
+	public void run(String... args) throws Exception {
+		Role adminRole = new Role();
+		adminRole.setName("ROLE_ADMIN");
+		roleRepository.save(adminRole);
+
+		Role userRole = new Role();
+		userRole.setName("ROLE_USER");
+		roleRepository.save(userRole);
+	}
 }
